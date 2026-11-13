@@ -15,15 +15,21 @@ val keystoreProperties = Properties().apply {
 
 android {
     namespace = "com.cleber.videosplit30"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.cleber.videosplit30"
         minSdk = 26
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        targetSdk = 36
+        versionCode = 2
+        versionName = "1.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    androidResources {
+        // O app tem apenas os textos padrão (pt-BR). Evita empacotar traduções
+        // herdadas das bibliotecas AndroidX.
+        localeFilters += listOf("pt", "en")
     }
 
     signingConfigs {
@@ -43,6 +49,19 @@ android {
             signingConfig = signingConfigs.findByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+    }
+
+    bundle {
+        language {
+            // O app não tem traduções: manter um único pacote de idioma.
+            enableSplit = false
+        }
+    }
+
+    lint {
+        // Falha o build em erros de lint (requisito de qualidade da Play Store).
+        abortOnError = true
+        checkReleaseBuilds = true
     }
 
     compileOptions {

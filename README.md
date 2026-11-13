@@ -3,7 +3,11 @@
 Aplicativo Android que divide vídeos em partes de **30 segundos sem reencodar**
 (sem perder qualidade) e compartilha **todas as partes de uma vez** pelo WhatsApp.
 
-![Tela inicial](docs/screenshot-inicial.png)
+[![Release](https://img.shields.io/github/v/release/clebersys/divide30s)](https://github.com/clebersys/divide30s/releases)
+[![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-blue)](LICENSE)
+[![Android](https://img.shields.io/badge/Android-8.0%2B-3DDC84)](https://developer.android.com)
+
+![Tela inicial](store/screenshot-1.png)
 
 ## Funcionalidades
 
@@ -18,6 +22,7 @@ Aplicativo Android que divide vídeos em partes de **30 segundos sem reencodar**
 - 💾 Checagem de espaço livre antes de começar.
 - 🧹 Limpa automaticamente as partes da divisão anterior.
 - 🌗 Interface em Jetpack Compose, tema escuro.
+- 🔌 100% offline: o app **não declara a permissão `INTERNET`**.
 
 ## Como funciona
 
@@ -27,7 +32,7 @@ flowchart LR
     B --> C{Sample é keyframe<br/>e passou de 30s?}
     C -- Não --> D[MediaMuxer grava<br/>na parte atual]
     C -- Sim --> E[Fecha a parte<br/>e abre a próxima]
-    D --> F[MP4 parte 001]
+    D --> F[MP4 parte 0001]
     E --> F
     F --> G[Compartilhar todas<br/>de uma vez]
 ```
@@ -47,20 +52,21 @@ flowchart LR
 ## Requisitos
 
 - Android **8.0 (API 26)** ou superior.
-- Para compilar: JDK 17+ e Android SDK 35 (Gradle wrapper incluso).
+- Para compilar: JDK 17+ e Android SDK **36** (Gradle wrapper incluso).
 
 ## Instalação
 
-APK assinado pronto:
+APK assinado pronto (também disponível na
+[release](https://github.com/clebersys/divide30s/releases)):
 
 ```
-dist/Divide30s-1.0-release.apk
+dist/Divide30s-1.1.0-release.apk
 ```
 
 Via ADB:
 
 ```bash
-adb install "dist/Divide30s-1.0-release.apk"
+adb install "dist/Divide30s-1.1.0-release.apk"
 ```
 
 Ou copie o APK para o celular e instale permitindo "fontes desconhecidas".
@@ -87,22 +93,34 @@ Guia detalhado: [docs/COMO_USAR.md](docs/COMO_USAR.md)
 # debug
 ./gradlew assembleDebug
 
-# release assinado (usa keystore.properties)
+# release assinado (APK)
 ./gradlew assembleRelease
+
+# release assinado (AAB para a Play Store)
+./gradlew bundleRelease
+```
+
+Ou, para gerar tudo de uma vez e copiar para `dist/`:
+
+```bash
+./scripts/build-release.sh
 ```
 
 Saídas:
 
 - `app/build/outputs/apk/debug/app-debug.apk`
 - `app/build/outputs/apk/release/app-release.apk`
+- `app/build/outputs/bundle/release/app-release.aab`
 
 ### Assinatura
 
 O release usa o keystore `keystore/divide30s-release.jks` (alias `divide30s`).
-As senhas ficam em `keystore.properties`, ambos fora do Git.
+As senhas ficam em `keystore.properties`, ambos fora do Git. Para configurar do
+zero, copie [`keystore.properties.example`](keystore.properties.example).
 
 > ⚠️ Guarde o keystore **e** o `keystore.properties` em local seguro. Sem eles
 > não é possível atualizar o app já instalado — só reinstalar como app novo.
+> Na Play Store, este keystore atua como **upload key**.
 
 Certificado atual (SHA-256):
 
@@ -119,12 +137,22 @@ duração, resolução e legibilidade das partes:
 ./gradlew connectedDebugAndroidTest
 ```
 
-Resultado da última execução (emulador Android 15):
+Resultado da última execução (emulador Android 16):
 
 - 65s → **3 partes** (0–30s, 30–60s, 60–65s)
 - todas abrem como vídeo válido, mesma resolução (320×240) e duração esperada
 - soma dos tamanhos ≈ arquivo original (confirma ausência de re-encode)
-- `lintDebug` sem erros
+- `lintDebug` e `lintRelease` sem erros
+
+## Publicação na Play Store
+
+O projeto já está adequado às exigências atuais da loja: `targetSdk 36`,
+Android App Bundle assinado, backup desativado, sem permissões perigosas,
+política de privacidade e recursos gráficos prontos.
+
+- Passo a passo e textos da listagem: **[docs/PLAY_STORE.md](docs/PLAY_STORE.md)**
+- Política de privacidade: **[PRIVACY.md](PRIVACY.md)**
+- Recursos gráficos: pasta [`store/`](store)
 
 ## Estrutura
 
@@ -136,8 +164,10 @@ app/src/main/java/com/cleber/videosplit30/
 └── ShareUtils.kt        # Intents de compartilhamento + FileProvider
 
 app/src/androidTest/     # teste instrumentado com vídeo de amostra
-app/src/main/res/xml/file_paths.xml
-docs/                    # arquitetura e guia de uso
+app/src/main/res/xml/    # regras do FileProvider e de backup
+docs/                    # arquitetura, guia de uso e publicação
+scripts/                 # build de release e geração de assets
+store/                   # ícone, feature graphic e screenshots da loja
 ```
 
 Detalhes técnicos: [docs/ARQUITETURA.md](docs/ARQUITETURA.md)
@@ -160,6 +190,8 @@ O app não usa internet, não coleta dados e não envia nada para servidores. To
 processamento é local. O compartilhamento só acontece quando você toca em um dos
 botões e escolhe o app de destino.
 
+Texto completo: [PRIVACY.md](PRIVACY.md)
+
 ## Licença
 
-Uso pessoal. Defina uma licença antes de distribuir publicamente.
+[MIT](LICENSE) © 2026 clebersys

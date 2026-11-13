@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -73,6 +74,15 @@ class MainActivity : ComponentActivity() {
                 val vm: SplitViewModel = viewModel()
                 val state by vm.state.collectAsState()
                 val context = LocalContext.current
+
+                // Voltar (inclusive o gesto preditivo) retorna ao início em vez de
+                // fechar o app quando já existe um resultado ou um erro na tela.
+                BackHandler(
+                    enabled = state is SplitViewModel.State.Done ||
+                        state is SplitViewModel.State.Error,
+                ) {
+                    vm.reset()
+                }
 
                 val picker = rememberLauncherForActivityResult(
                     ActivityResultContracts.OpenDocument(),

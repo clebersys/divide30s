@@ -194,3 +194,38 @@ O teste roda em emulador/dispositivo com:
 ```bash
 ./gradlew connectedDebugAndroidTest
 ```
+
+Resultado da última execução: **Android 16 (API 36), 1080×1920** — 3 partes
+válidas, mesma resolução e soma dos tamanhos equivalente ao original.
+
+## Adequação à Play Store
+
+O manifesto e o build foram ajustados para as exigências atuais da loja sem
+mudar o comportamento do algoritmo:
+
+| Item | Motivo |
+|---|---|
+| `compileSdk`/`targetSdk` 36, AGP 8.13.2, Gradle 8.13 | Requisito para novos apps a partir de ago/2026. |
+| `bundleRelease` (AAB) | Apps novos precisam ser enviados como Android App Bundle. |
+| `allowBackup="false"` + `data_extraction_rules.xml` | Os vídeos são temporários e podem ser grandes; nada deve ir para o backup em nuvem. |
+| `appCategory="video"` | Ajuda o sistema e a loja a classificarem o app. |
+| `enableOnBackInvokedCallback="true"` + `BackHandler` | Suporte ao gesto preditivo de voltar (Android 13+); voltar na tela de resultado retorna ao início. |
+| `<queries>` com `com.whatsapp` / `com.whatsapp.w4b` | No Android 11+ a visibilidade de pacotes é restrita; sem isso `getPackageInfo()` falha e o atalho direto nunca é usado. |
+| `localeFilters = ["pt", "en"]` | Evita empacotar dezenas de traduções herdadas das bibliotecas AndroidX. |
+| `lint.abortOnError = true` | Impede publicar um build com erros de lint. |
+| Verificação `zipalign -c -P 16` | Apps com bibliotecas nativas precisam suportar páginas de 16 KB no Android 15+. |
+
+### Sobre a divisão da UI e o `BackHandler`
+
+`BackHandler` usa o `OnBackPressedDispatcher`, que já integra o gesto preditivo
+quando `enableOnBackInvokedCallback` está ligado. Ele é habilitado apenas nos
+estados `Done` e `Error`, para que voltar não feche o app logo depois de uma
+divisão concluída.
+
+### Permissões
+
+O APK final declara apenas
+`com.cleber.videosplit30.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`, adicionada
+automaticamente pela AndroidX para receivers internos. **Não há** `INTERNET`,
+armazenamento, câmera, microfone ou qualquer permissão perigosa — o que também
+simplifica o formulário de Segurança dos dados da Play Store.

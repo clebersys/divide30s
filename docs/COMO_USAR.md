@@ -2,7 +2,7 @@
 
 ## Instalar
 
-1. Copie `Divide30s-1.0-release.apk` para o celular (cabo, Drive, Telegram etc.).
+1. Copie `Divide30s-1.1.0-release.apk` para o celular (cabo, Drive, Telegram etc.).
 2. Abra o arquivo e permita **"Instalar apps desconhecidos"** para o app usado
    na abertura (Arquivos, Chrome etc.).
 3. Confirme a instalação.
@@ -10,7 +10,7 @@
 Via ADB:
 
 ```bash
-adb install "dist/Divide30s-1.0-release.apk"
+adb install "dist/Divide30s-1.1.0-release.apk"
 ```
 
 O app não pede nenhuma permissão de câmera, microfone, contatos ou
