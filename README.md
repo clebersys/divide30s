@@ -62,13 +62,13 @@ APK assinado pronto (também disponível na
 [release](https://github.com/clebersys/divide30s/releases)):
 
 ```
-dist/Divide30s-1.2.0-release.apk
+dist/Divide30s-1.2.1-release.apk
 ```
 
 Via ADB:
 
 ```bash
-adb install "dist/Divide30s-1.2.0-release.apk"
+adb install "dist/Divide30s-1.2.1-release.apk"
 ```
 
 Ou copie o APK para o celular e instale permitindo "fontes desconhecidas".

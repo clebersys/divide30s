@@ -2,7 +2,7 @@
 
 ## Instalar
 
-1. Copie `Divide30s-1.2.0-release.apk` para o celular (cabo, Drive, Telegram etc.).
+1. Copie `Divide30s-1.2.1-release.apk` para o celular (cabo, Drive, Telegram etc.).
 2. Abra o arquivo e permita **"Instalar apps desconhecidos"** para o app usado
    na abertura (Arquivos, Chrome etc.).
 3. Confirme a instalação.
@@ -10,7 +10,7 @@
 Via ADB:
 
 ```bash
-adb install "dist/Divide30s-1.2.0-release.apk"
+adb install "dist/Divide30s-1.2.1-release.apk"
 ```
 
 O app não pede nenhuma permissão de câmera, microfone, contatos ou
@@ -59,7 +59,7 @@ Android/data/com.cleber.videosplit30/files/Movies/Divide30s/<data_hora>/
 ```
 
 Essa pasta é privada do app; os arquivos **não aparecem na galeria**. Ao iniciar
-uma nova divisão, as partes anteriores são apagadas automaticamente para não
+ao escolher outro vídeo, as partes anteriores são apagadas automaticamente para não
 acumular vídeos.
 
 Para guardar uma parte permanentemente, compartilhe com o Drive/Arquivos ou

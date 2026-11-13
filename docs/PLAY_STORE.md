@@ -73,11 +73,11 @@ de assinatura.
 | Item | Valor |
 |---|---|
 | `applicationId` | `com.cleber.videosplit30` |
-| `versionCode` | `4` |
-| `versionName` | `1.2.0` |
+| `versionCode` | `5` |
+| `versionName` | `1.2.1` |
 | `minSdk` / `targetSdk` / `compileSdk` | `26` / `36` / `36` |
-| SHA-256 do APK | `737e30f59d8f2356eca99e89d41e4100b78c7afba351fc7a87070c334b79c69b` |
-| SHA-256 do AAB | `76adf84e6af851e1262675ebea4dfaaa2d7eda311059cc962edc1667d4f840c6` |
+| SHA-256 do APK | `56d800cc44efb2ba2e5faf1092a117b96fa2f43c64653e0e4f58ea192c20cd44` |
+| SHA-256 do AAB | `830a07ef19b5c6c2003d02c6d1b8ea20cbdf4b689a7ad5605ce3490f609b2914` |
 
 ---
 
@@ -258,7 +258,7 @@ Classificação esperada: **Livre / Everyone**.
 
 ---
 
-## 9. Notas de versão sugeridas (v1.2.0)
+## 9. Notas de versão sugeridas (v1.2.1)
 
 ```
 Novidades desta versão.
@@ -266,5 +266,6 @@ Novidades desta versão.
 • Tela de pré-visualização: ao escolher o vídeo, toque para dar play e conferir se é o arquivo correto antes de dividir.
 • Mantém a divisão em partes de ~30s sem reencodificar (qualidade original).
 • Compartilha todas as partes de uma vez no WhatsApp (inclui modo documento).
+• As partes da divisão anterior são apagadas ao escolher outro vídeo.
 • Compatível com Android 8.0+ e alinhado ao targetSdk 36.
 ```
