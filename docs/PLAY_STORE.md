@@ -73,11 +73,11 @@ de assinatura.
 | Item | Valor |
 |---|---|
 | `applicationId` | `com.cleber.videosplit30` |
-| `versionCode` | `2` |
-| `versionName` | `1.1.0` |
+| `versionCode` | `3` |
+| `versionName` | `1.1.1` |
 | `minSdk` / `targetSdk` / `compileSdk` | `26` / `36` / `36` |
-| SHA-256 do APK | `b74cf6ad9236a9af82815761c20ec26bfc5a8ba0b63aaa682f445675d21bfcae` |
-| SHA-256 do AAB | `52898655b26c192f5a62c1d6d5b0e51831a8b5055500cd8bddef0bb770878812` |
+| SHA-256 do APK | `7305aec120b39c121870dbdda423c58b29e2098fabe57fced3e2f7c375d78f65` |
+| SHA-256 do AAB | `6b9940d4dad574dcb12fb89da5be3fc253216e16b1771d7716cb8b731000222d` |
 
 ---
 
@@ -258,7 +258,7 @@ Classificação esperada: **Livre / Everyone**.
 
 ---
 
-## 9. Notas de versão sugeridas (v1.1.0)
+## 9. Notas de versão sugeridas (v1.1.1)
 
 ```
 Primeira versão pública.
@@ -267,4 +267,5 @@ Primeira versão pública.
 • Compartilha todas as partes de uma vez no WhatsApp.
 • Modo documento para evitar recompressão no WhatsApp.
 • Compatível com Android 8.0+ e alinhado ao targetSdk 36.
+• Crédito do desenvolvedor visível na tela principal.
 ```

@@ -104,7 +104,8 @@ class MainActivity : ComponentActivity() {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(horizontal = 20.dp, vertical = 12.dp),
+                                // O espaço extra embaixo reserva lugar para o crédito.
+                                .padding(start = 20.dp, end = 20.dp, top = 12.dp, bottom = 36.dp),
                         ) {
                             Header()
                             Spacer(Modifier.height(18.dp))
@@ -180,11 +181,27 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
                         }
+
+                        CreditFooter(
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .padding(bottom = 10.dp),
+                        )
                     }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun CreditFooter(modifier: Modifier = Modifier) {
+    Text(
+        text = "Desenvolvido por Cleber Reis",
+        color = TextMuted.copy(alpha = 0.8f),
+        fontSize = 11.sp,
+        modifier = modifier,
+    )
 }
 
 @Composable
