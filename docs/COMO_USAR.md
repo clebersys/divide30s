@@ -2,7 +2,7 @@
 
 ## Instalar
 
-1. Copie `Divide30s-1.1.1-release.apk` para o celular (cabo, Drive, Telegram etc.).
+1. Copie `Divide30s-1.2.0-release.apk` para o celular (cabo, Drive, Telegram etc.).
 2. Abra o arquivo e permita **"Instalar apps desconhecidos"** para o app usado
    na abertura (Arquivos, Chrome etc.).
 3. Confirme a instalação.
@@ -10,7 +10,7 @@
 Via ADB:
 
 ```bash
-adb install "dist/Divide30s-1.1.1-release.apk"
+adb install "dist/Divide30s-1.2.0-release.apk"
 ```
 
 O app não pede nenhuma permissão de câmera, microfone, contatos ou
@@ -21,8 +21,8 @@ armazenamento.
 1. Abra o **Divide 30s**.
 2. Toque em **Escolher vídeo**.
 3. Selecione o vídeo no seletor do Android.
-4. Confira as informações e toque em **Dividir em partes de 30s**.
-5. Aguarde a barra de progresso. Você pode cancelar a qualquer momento.
+4. Confira a **pré-visualização** e toque no vídeo para dar play e confirmar que é o arquivo correto.
+5. Toque em **Dividir em partes de 30s** e aguarde a barra de progresso. Você pode cancelar a qualquer momento.
 
 O tempo varia com o tamanho do vídeo, mas costuma ser bem rápido porque nada é
 reencodado — é só cópia de dados.

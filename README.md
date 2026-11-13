@@ -28,21 +28,23 @@ Aplicativo Android que divide vídeos em partes de **30 segundos sem reencodar**
 
 ```mermaid
 flowchart LR
-    A[Vídeo original] --> B[MediaExtractor]
-    B --> C{Sample é keyframe<br/>e passou de 30s?}
-    C -- Não --> D[MediaMuxer grava<br/>na parte atual]
-    C -- Sim --> E[Fecha a parte<br/>e abre a próxima]
-    D --> F[MP4 parte 0001]
-    E --> F
-    F --> G[Compartilhar todas<br/>de uma vez]
+    A[Vídeo original] --> B[Pré-visualização]
+    B --> C[MediaExtractor]
+    C --> D{Sample é keyframe<br/>e passou de 30s?}
+    D -- Não --> E[MediaMuxer grava<br/>na parte atual]
+    D -- Sim --> F[Fecha a parte<br/>e abre a próxima]
+    E --> G[MP4 parte 0001]
+    F --> G
+    G --> H[Compartilhar todas<br/>de uma vez]
 ```
 
-1. O vídeo é aberto com `MediaExtractor`, que entrega os samples **já
+1. Ao escolher o vídeo, o app exibe uma **pré-visualização** para o usuário dar play e confirmar que é o arquivo correto.
+2. O vídeo é aberto com `MediaExtractor`, que entrega os samples **já
    comprimidos** (H.264/HEVC + AAC etc.).
-2. Cada sample é escrito em um `MediaMuxer` novo, sem passar por decoder/encoder.
-3. Quando aparece um **keyframe** depois dos 30s, a parte atual é fechada e a
+3. Cada sample é escrito em um `MediaMuxer` novo, sem passar por decoder/encoder.
+4. Quando aparece um **keyframe** depois dos 30s, a parte atual é fechada e a
    próxima começa exatamente nesse keyframe.
-4. No fim, todos os arquivos são compartilhados juntos via `FileProvider` +
+5. No fim, todos os arquivos são compartilhados juntos via `FileProvider` +
    `Intent.ACTION_SEND_MULTIPLE`.
 
 > O corte é feito no keyframe mais próximo depois dos 30s. Por isso as partes
@@ -60,13 +62,13 @@ APK assinado pronto (também disponível na
 [release](https://github.com/clebersys/divide30s/releases)):
 
 ```
-dist/Divide30s-1.1.1-release.apk
+dist/Divide30s-1.2.0-release.apk
 ```
 
 Via ADB:
 
 ```bash
-adb install "dist/Divide30s-1.1.1-release.apk"
+adb install "dist/Divide30s-1.2.0-release.apk"
 ```
 
 Ou copie o APK para o celular e instale permitindo "fontes desconhecidas".
