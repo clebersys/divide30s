@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Divide 30s</string>
+    <string name="pick_video">Escolher vídeo</string>
+    <string name="split_video">Dividir em partes de 30s</string>
+    <string name="share_whatsapp">Compartilhar no WhatsApp</string>
+    <string name="share_other">Compartilhar em outro app</string>
+    <string name="new_split">Nova divisão</string>
+    <string name="splitting">Dividindo…</string>
+</resources>
