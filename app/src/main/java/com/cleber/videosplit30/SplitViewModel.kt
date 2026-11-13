@@ -59,7 +59,10 @@ class SplitViewModel(application: Application) : AndroidViewModel(application) {
     fun onVideoPicked(uri: Uri) {
         viewModelScope.launch {
             _state.value = State.Idle
-            val info = withContext(Dispatchers.IO) { readMetadata(uri) }
+            val info = withContext(Dispatchers.IO) {
+                clearPreviousSplits()
+                readMetadata(uri)
+            }
             _state.value = State.Ready(
                 uri = uri,
                 name = info.name,
@@ -93,10 +96,7 @@ class SplitViewModel(application: Application) : AndroidViewModel(application) {
                         }
                     }
 
-                    // Partes de divisões anteriores não são mais necessárias.
-                    base.listFiles()?.forEach { old ->
-                        runCatching { old.deleteRecursively() }
-                    }
+                    clearPreviousSplits()
 
                     val stamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(Date())
                     val dir = File(base, stamp)
@@ -158,6 +158,16 @@ class SplitViewModel(application: Application) : AndroidViewModel(application) {
         val durationMs: Long,
         val sizeBytes: Long,
     )
+
+    /** Apaga as partes de divisões anteriores; elas não são mais necessárias. */
+    private fun clearPreviousSplits() {
+        val app = getApplication<Application>()
+        val root = app.getExternalFilesDir(Environment.DIRECTORY_MOVIES)
+            ?: File(app.filesDir, "videos")
+        File(root, "Divide30s").listFiles()?.forEach { old ->
+            runCatching { old.deleteRecursively() }
+        }
+    }
 
     private fun formatGigabytes(bytes: Long): String =
         String.format(Locale.getDefault(), "%.1f GB", bytes / (1024.0 * 1024.0 * 1024.0))
